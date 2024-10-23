@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Form</title>
+    <title>Dynamic Contact Form - CSVTU</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,6 +24,41 @@
         h2 {
             text-align: center;
             color: #333;
+        }
+
+        /* .welcome {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        } */
+
+        .about-btn {
+            display: block;
+            background-color: #464646; /* Updated color */
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 30px auto; /* Center the button */
+            text-align: center;
+            width: 150px; /* Button width */
+            margin-top: 0;
+            font-size: medium;
+        }
+
+        .about-btn:hover {
+            background-color: #7E7E7E; /* Slightly darker green */
+        }
+
+        .about-info {
+            display: none;
+            margin-top: 20px;
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
         }
 
         label {
@@ -65,7 +100,20 @@
 </head>
 <body>
     <div class="container">
-        <h2>Contact Form</h2>
+        <h2>Welcome to Dynamic Contact Form of CSVTU</h2>
+        <!-- Welcome Title -->
+       
+
+        <!-- About Button and Info -->
+        <button class="about-btn" id="aboutBtn">About</button>
+        <div class="about-info" id="aboutInfo">
+            <p>The Dynamic Contact Form of CSVTU is designed to provide a seamless communication platform between students, parents/guardians and the university administration. 
+            You can reach out to different departments like the Director, Administration, Exam Cell, and the Vice Chancellor with your queries or concerns.</p>
+            <p>This contact form allows you to select the relevant department, fill in your message, and send it directly via email. 
+            We strive to ensure that every message is received and addressed promptly to improve the overall academic and administrative experience for students.</p>
+            <p>For further assistance, feel free to use this form to get in touch with the appropriate personnel at CSVTU.</p>
+        </div>
+
         <form id="contactForm">
             <label for="recipient">Select Recipient:</label>
             <select id="recipient" name="recipient" required>
@@ -92,9 +140,20 @@
     </div>
 
     <script>
+        // Toggle About Info
+        const aboutBtn = document.getElementById('aboutBtn');
+        const aboutInfo = document.getElementById('aboutInfo');
+        aboutBtn.addEventListener('click', function() {
+            if (aboutInfo.style.display === 'none' || aboutInfo.style.display === '') {
+                aboutInfo.style.display = 'block';
+            } else {
+                aboutInfo.style.display = 'none';
+            }
+        });
+
+        // Show message form when recipient is selected
         const recipientSelect = document.getElementById('recipient');
         const messageContainer = document.getElementById('messageContainer');
-
         recipientSelect.addEventListener('change', function() {
             if (this.value) {
                 messageContainer.style.display = 'block';
@@ -103,6 +162,7 @@
             }
         });
 
+        // Handle form submission
         document.getElementById('contactForm').addEventListener('submit', function(event) {
             event.preventDefault();
             sendMessage();
@@ -119,9 +179,8 @@
 
             // Define email and phone for each recipient
             switch (recipient) {
-                
                 case 'director':
-                    recipientEmail = 'prabhatkumarsictc7070@gmail.com.com';
+                    recipientEmail = 'prabhatkumarsictc7070@gmail.com';
                     recipientPhone = '9801675811';
                     break;
                 case 'administration':
@@ -138,7 +197,7 @@
                     break;
             }
 
-            // Send the email or mobile message
+            // Send email or mobile message
             if (recipientEmail) {
                 window.location.href = `mailto:${recipientEmail}?subject=Message from ${email}&body=${message}`;
             }
